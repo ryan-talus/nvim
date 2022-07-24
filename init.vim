@@ -81,7 +81,7 @@ nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-nnoremap <leader>fc <cmd>Telescope commands<cr>
+nnoremap <leader>fp <cmd>Telescope commands<cr>
 nnoremap <leader>fi <cmd>Telescope quickfix<cr>
 nnoremap <leader>fk <cmd>Telescope keymaps<cr>
 nnoremap <leader>fr <cmd>Telescope coc references<cr>
