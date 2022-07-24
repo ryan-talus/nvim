@@ -1,4 +1,4 @@
-syntax on 
+syntax on
 set t_Co=256
 set ignorecase
 set smartcase
@@ -46,7 +46,7 @@ nnoremap <leader>i <C-i>
 " bind noh to escape to hide it fast
 " nnoremap <esc> :noh<return><esc>
 
-" plugin manager 
+" plugin manager
 call plug#begin()
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
@@ -61,7 +61,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'TimUntersberger/neogit'
 
-" colorschemes 
+" colorschemes
 Plug 'navarasu/onedark.nvim'
 Plug 'EdenEast/nightfox.nvim'
 Plug 'dikiaap/minimalist'
@@ -103,10 +103,10 @@ nmap <space>e <Cmd>CocCommand explorer<CR>
 
 lua << EOF
 require('telescope').setup{
-  defaults = { 
+  defaults = {
     file_ignore_patterns = { "node_modules", ".plugins",  ".static", ".public"}
   }
-} 
+}
 
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all"
@@ -122,7 +122,7 @@ require'nvim-treesitter.configs'.setup {
   highlight = {
     -- `false` will disable the whole extension
     enable = true,
-    disable = { "tsx", "typescript", "javascript"},
+    -- disable = { "tsx", "typescript", "javascript"},
 
     -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
     -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
@@ -135,13 +135,13 @@ EOF
 
 
 let g:coc_global_extensions = [
-      \'coc-tsserver', 
-      \'coc-prettier', 
-      \'coc-pairs', 
-      \'coc-html', 
-      \'coc-json', 
-      \'coc-css', 
-      \'coc-styled-components', 
+      \'coc-tsserver',
+      \'coc-prettier',
+      \'coc-pairs',
+      \'coc-html',
+      \'coc-json',
+      \'coc-css',
+      \'coc-styled-components',
       \'coc-explorer',
       \'coc-pyright']
 " coc-vim settings
