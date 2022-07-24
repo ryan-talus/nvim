@@ -65,9 +65,9 @@ Plug 'tpope/vim-fugitive'
 " colorschemes
 Plug 'navarasu/onedark.nvim'
 Plug 'EdenEast/nightfox.nvim'
-Plug 'dikiaap/minimalist'
 Plug 'nanotech/jellybeans.vim'
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+Plug 'Yazeed1s/minimal.nvim'
 call plug#end()
 
 " plugin remapping
