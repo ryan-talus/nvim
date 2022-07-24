@@ -89,11 +89,21 @@ nnoremap <leader>ft <cmd>Telescope colorscheme<cr>
 nnoremap <leader>gg <cmd>Telescope git_status<cr>
 nnoremap <leader>gl <cmd>Telescope git_commits<cr>
 
+" " remap git to not conflict with split navigation
+" nnoremap <leader>gp <Plug>(GitGutterPreviewHunk)
+" nnoremap <leader>gu <Plug>(GitGutterUndoHunk)
+" nnoremap <leader>gs <Plug>(GitGutterStageHunk)
+" xnoremap <leader>gs <Plug>(GitGutterStageHunk)
+
 " remap git to not conflict with split navigation
-nnoremap <leader>gp <Plug>(GitGutterPreviewHunk)
-nnoremap <leader>gu <Plug>(GitGutterUndoHunk)
-nnoremap <leader>gs <Plug>(GitGutterStageHunk)
-xnoremap <leader>gs <Plug>(GitGutterStageHunk)
+nnoremap <leader>gp <cmd>VGit buffer_hunk_preview<cr>
+nnoremap <leader>gs <cmd>VGit buffer_hunk_stage<cr>
+nnoremap <leader>gu <cmd>VGit buffer_unstage<cr>
+
+nmap <silent> [c <cmd>VGit hunk_up<cr>
+nmap <silent> ]c <cmd>VGit hunk_down<cr>
+
+
 
 " " NERDTree
 " nnoremap <leader>n :NERDTreeFocus<CR>
