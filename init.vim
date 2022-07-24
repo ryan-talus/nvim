@@ -240,16 +240,18 @@ require('onedark').load()
 EOF
 
 
-" lua << EOF
-" require('nightfox').setup({
-"   options = { transparent = true }
-" })
-" EOF
+lua << EOF
+require('nightfox').setup({
+  options = { transparent = true }
+})
+EOF
 
 
 " let g:airline_theme='minimalist'
 " let g:airline_theme='nightfox'
-let g:airline_theme='onedark'
+" let g:airline_theme='onedark'
+" let g:airline_theme='jellybeans'
+let g:airline_theme='jellybeans'
 
 
 colorscheme onedark
