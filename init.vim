@@ -103,7 +103,15 @@ xnoremap <leader>gs <Plug>(GitGutterStageHunk)
 
 nmap <space>e <Cmd>CocCommand explorer<CR>
 
+
 lua << EOF
+require('vgit').setup({
+  settings = {
+    scene = {
+      diff_preference = 'split',
+    },
+  }
+})
 require('telescope').setup{
   defaults = {
     file_ignore_patterns = { "node_modules", ".plugins",  ".static", ".public"}
