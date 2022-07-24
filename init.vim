@@ -86,7 +86,7 @@ nnoremap <leader>fk <cmd>Telescope keymaps<cr>
 nnoremap <leader>fr <cmd>Telescope coc references<cr>
 nnoremap <leader>fd <cmd>Telescope coc definitions<cr>
 nnoremap <leader>ft <cmd>Telescope colorscheme<cr>
-nnoremap <leader>gg <cmd>Telescope git_status<cr>
+" nnoremap <leader>gg <cmd>Telescope git_status<cr>
 nnoremap <leader>gl <cmd>Telescope git_commits<cr>
 
 " " remap git to not conflict with split navigation
