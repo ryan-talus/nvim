@@ -13,6 +13,12 @@ set updatetime=50
 set number relativenumber
 set nu rnu
 set noswapfile
+set termguicolors
+set hidden
+" Some servers have issues with backup files, see #649.
+set nobackup
+set nowritebackup
+
 
 let mapleader=' '
 
@@ -45,19 +51,23 @@ call plug#begin()
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
 Plug 'fannheyward/telescope-coc.nvim'
-Plug 'https://github.com/tpope/vim-commentary.git'
+Plug 'tpope/vim-commentary'
 Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install() } }
-Plug 'navarasu/onedark.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'https://github.com/airblade/vim-gitgutter.git'
 Plug 'styled-components/vim-styled-components'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-" Plug 'preservim/nerdtree'
-call plug#end()
+Plug 'TimUntersberger/neogit'
 
-let g:airline_theme='minimalist'
+" colorschemes 
+Plug 'navarasu/onedark.nvim'
+Plug 'EdenEast/nightfox.nvim'
+Plug 'dikiaap/minimalist'
+Plug 'nanotech/jellybeans.vim'
+Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+call plug#end()
 
 " plugin remapping
 " xnoremap <silent>g <cmd>gc
@@ -73,13 +83,15 @@ nnoremap <leader>fi <cmd>Telescope quickfix<cr>
 nnoremap <leader>fk <cmd>Telescope keymaps<cr>
 nnoremap <leader>fr <cmd>Telescope coc references<cr>
 nnoremap <leader>fd <cmd>Telescope coc definitions<cr>
-" nnoremap <leader
+nnoremap <leader>ft <cmd>Telescope colorscheme<cr>
+nnoremap <leader>gg <cmd>Telescope git_status<cr>
+nnoremap <leader>gl <cmd>Telescope git_commits<cr>
 
 " remap git to not conflict with split navigation
-nnoremap gp <Plug>(GitGutterPreviewHunk)
-nnoremap gu <Plug>(GitGutterUndoHunk)
-nnoremap gs <Plug>(GitGutterStageHunk)
-xnoremap gs <Plug>(GitGutterStageHunk)
+nnoremap <leader>gp <Plug>(GitGutterPreviewHunk)
+nnoremap <leader>gu <Plug>(GitGutterUndoHunk)
+nnoremap <leader>gs <Plug>(GitGutterStageHunk)
+xnoremap <leader>gs <Plug>(GitGutterStageHunk)
 
 " " NERDTree
 " nnoremap <leader>n :NERDTreeFocus<CR>
@@ -132,14 +144,8 @@ let g:coc_global_extensions = [
       \'coc-styled-components', 
       \'coc-explorer',
       \'coc-pyright']
-
 " coc-vim settings
 " TextEdit might fail if hidden is not set.
-set hidden
-
-" Some servers have issues with backup files, see #649.
-set nobackup
-set nowritebackup
 
 " Give more space for displaying messages.
 set cmdheight=2
@@ -212,12 +218,31 @@ command! -nargs=0 Tsc :call CocAction('runCommand', 'tsserver.watchBuild')
 
 
 
-" colorscheme setup
-let g:onedark_config = {
-    \ 'style': 'darker',
-    \ 'transparent': 'true'
-\}
+" " colorscheme setup
+lua << EOF
+require('onedark').setup {
+    style = 'darker',
+    transparent = true
+}
+require('onedark').load()
+EOF
+
+
+" lua << EOF
+" require('nightfox').setup({
+"   options = { transparent = true }
+" })
+" EOF
+
+
+" let g:airline_theme='minimalist'
+" let g:airline_theme='nightfox'
+let g:airline_theme='onedark'
+
+
 colorscheme onedark
+
+
 
 nnoremap <leader>si <CMD>CocCommand pyright.organizeimports<CR>
 
