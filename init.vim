@@ -60,6 +60,7 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'TimUntersberger/neogit'
+Plug 'tpope/vim-fugitive'
 
 " colorschemes
 Plug 'navarasu/onedark.nvim'
