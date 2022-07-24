@@ -103,6 +103,8 @@ nnoremap <leader>gu <cmd>VGit buffer_unstage<cr>
 nmap <silent> [c <cmd>VGit hunk_up<cr>
 nmap <silent> ]c <cmd>VGit hunk_down<cr>
 
+nnoremap <leader>gg <cmd>vertical Git<cr>
+command G :vertical Git
 
 
 " " NERDTree
