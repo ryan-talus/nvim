@@ -54,7 +54,8 @@ Plug 'fannheyward/telescope-coc.nvim'
 Plug 'tpope/vim-commentary'
 Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install() } }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'https://github.com/airblade/vim-gitgutter.git'
+"Plug 'https://github.com/airblade/vim-gitgutter.git'
+Plug 'tanvirtin/vgit.nvim'
 Plug 'styled-components/vim-styled-components'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'vim-airline/vim-airline'
