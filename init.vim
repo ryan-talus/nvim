@@ -275,6 +275,7 @@ nnoremap <leader>si <CMD>CocCommand pyright.organizeimports<CR>
 
 " Because I don't know how to type
 command Wq :wq
+nnoremap <leader>q <cmd>q<cr>
 
 
 
