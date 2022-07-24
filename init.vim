@@ -62,6 +62,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'TimUntersberger/neogit'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 
 " colorschemes
 Plug 'navarasu/onedark.nvim'
