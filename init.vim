@@ -1,4 +1,4 @@
-set syntax
+syntax on
 set t_Co=256
 set ignorecase
 set smartcase
