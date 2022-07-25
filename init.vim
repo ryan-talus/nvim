@@ -1,4 +1,4 @@
-syntax on
+set syntax
 set t_Co=256
 set ignorecase
 set smartcase
@@ -18,6 +18,7 @@ set hidden
 " Some servers have issues with backup files, see #649.
 set nobackup
 set nowritebackup
+set nowrap
 
 
 let mapleader=' '
@@ -66,10 +67,13 @@ Plug 'tpope/vim-rhubarb'
 
 " colorschemes
 Plug 'navarasu/onedark.nvim'
-Plug 'EdenEast/nightfox.nvim'
 Plug 'nanotech/jellybeans.vim'
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 Plug 'Yazeed1s/minimal.nvim'
+Plug 'savq/melange'
+Plug 'fcpg/vim-farout'
+Plug 'RRethy/nvim-base16'
+Plug 'morhetz/gruvbox'
 call plug#end()
 
 " plugin remapping
@@ -122,6 +126,12 @@ require('vgit').setup({
   settings = {
     scene = {
       diff_preference = 'split',
+    },
+    live_blame = {
+      enabled = false,
+    },
+    authorship_code_lens = {
+      enabled = false,
     },
   }
 })
@@ -252,31 +262,73 @@ augroup END
 
 
 
-" " colorscheme setup
+" colorscheme setup
+" https://github.com/navarasu/onedark.nvim
 lua << EOF
 require('onedark').setup {
-    style = 'darker',
-    transparent = true
+    style = 'warm',
+    transparent = true,
+    colors = {
+      -- purple = "#c678dd",
+      purple = "#9578b0",
+      fg = "#bfb1a3",
+      cyan = "#5eaba1",
+      blue = "#689bc4",
+      yellow = "#c98f59",
+      orange = "#d6b569",
+    },
 }
 require('onedark').load()
 EOF
+" let g:airline_theme='onedark'
+" let g:airline_theme='angr'
+" let g:airline_theme='distinguished'
+" let g:airline_theme='jet'
+let g:airline_theme='distinguished'
+colorscheme onedark
+
+" let g:airline_section_z='%p%%%#__accent_bold#%{g:airline_symbols.linenr}%l%#__restore__#%#__accent_bold#/%L%{g:airline_symbols.maxlinenr}%#__restore__#%#__accent_bold#%{g:airline_symbols.colnr}%v%#__restore__#'
+let g:airline_section_z='%L%{g:airline_symbols.maxlinenr}'
+
+" lua << EOF
+" require('nightfox').setup({
+"   options = { transparent = true }
+" })
+" EOF
 
 
-lua << EOF
-require('nightfox').setup({
-  options = { transparent = true }
-})
-EOF
+"" lua << EOF
+"" require('base16-colorscheme').setup({
+""   base00 = '#16161D'
+"" })
+"" EOF
+""
 
 
 " let g:airline_theme='minimalist'
 " let g:airline_theme='nightfox'
-" let g:airline_theme='onedark'
 " let g:airline_theme='jellybeans'
-let g:airline_theme='jellybeans'
+" let g:airline_theme='farout'
+
+" let g:airline_theme='base16'
+" colorscheme base16-twilight
+
+" let g:airline_theme='gruvbox'
+" let g:gruvbox_contrast_dark='hard'
+" let g:gruvbox_transparent_bg='1'
+" let g:gruvbox_sign_column='bg0'
+" colorscheme gruvbox
 
 
-colorscheme onedark
+" let g:airline_theme='farout'
+" colorscheme farout
+
+" autocmd VimEnter * hi Normal ctermbg=none
+
+" colorscheme base16-default-dark
+" colorscheme farout
+
+
 
 
 
