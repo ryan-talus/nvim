@@ -64,6 +64,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'TimUntersberger/neogit'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
+Plug 'ellisonleao/glow.nvim'
 
 " colorschemes
 Plug 'navarasu/onedark.nvim'
@@ -243,7 +244,7 @@ nmap <leader>rn <Plug>(coc-rename)
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 
 command! -nargs=0 Tsc :call CocAction('runCommand', 'tsserver.watchBuild')
@@ -284,11 +285,11 @@ EOF
 " let g:airline_theme='angr'
 " let g:airline_theme='distinguished'
 " let g:airline_theme='jet'
-let g:airline_theme='distinguished'
+let g:airline_theme='onedark'
 colorscheme onedark
 
 " let g:airline_section_z='%p%%%#__accent_bold#%{g:airline_symbols.linenr}%l%#__restore__#%#__accent_bold#/%L%{g:airline_symbols.maxlinenr}%#__restore__#%#__accent_bold#%{g:airline_symbols.colnr}%v%#__restore__#'
-let g:airline_section_z='%L%{g:airline_symbols.maxlinenr}'
+"let g:airline_section_z='%L%{g:airline_symbols.maxlinenr}'
 
 " lua << EOF
 " require('nightfox').setup({
