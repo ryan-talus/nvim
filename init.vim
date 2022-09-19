@@ -21,6 +21,12 @@ set nowritebackup
 set nowrap
 
 
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+" set mouse=a 
+
+set laststatus=3
+
 let mapleader=' '
 
 let g:python3_host_prog = '/Users/ryan/.config/nvim/neovim_env'
@@ -55,6 +61,7 @@ Plug 'fannheyward/telescope-coc.nvim'
 Plug 'tpope/vim-commentary'
 Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install() } }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter-context'
 "Plug 'https://github.com/airblade/vim-gitgutter.git'
 Plug 'tanvirtin/vgit.nvim'
 Plug 'styled-components/vim-styled-components'
@@ -65,6 +72,8 @@ Plug 'TimUntersberger/neogit'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'ellisonleao/glow.nvim'
+Plug 'voldikss/vim-floaterm'
+Plug 'mechatroner/rainbow_csv'
 
 " colorschemes
 Plug 'navarasu/onedark.nvim'
@@ -75,6 +84,8 @@ Plug 'savq/melange'
 Plug 'fcpg/vim-farout'
 Plug 'RRethy/nvim-base16'
 Plug 'morhetz/gruvbox'
+Plug 'catppuccin/nvim', {'as': 'catppuccin'}
+
 call plug#end()
 
 " plugin remapping
@@ -112,6 +123,86 @@ nmap <silent> ]c <cmd>VGit hunk_down<cr>
 nnoremap <leader>gg <cmd>vertical Git<cr>
 command G :vertical Git
 
+lua << EOF
+require'treesitter-context'.setup{
+    enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+    max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
+    trim_scope = 'outer', -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
+    min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
+    patterns = { -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
+        -- For all filetypes
+        -- Note that setting an entry here replaces all other patterns for this entry.
+        -- By setting the 'default' entry below, you can control which nodes you want to
+        -- appear in the context window.
+        default = {
+            'class',
+            'function',
+            'method',
+            'for',
+            'while',
+            'if',
+            'switch',
+            'case',
+        },
+        -- Patterns for specific filetypes
+        -- If a pattern is missing, *open a PR* so everyone can benefit.
+        tex = {
+            'chapter',
+            'section',
+            'subsection',
+            'subsubsection',
+        },
+        rust = {
+            'impl_item',
+            'struct',
+            'enum',
+        },
+        scala = {
+            'object_definition',
+        },
+        vhdl = {
+            'process_statement',
+            'architecture_body',
+            'entity_declaration',
+        },
+        markdown = {
+            'section',
+        },
+        elixir = {
+            'anonymous_function',
+            'arguments',
+            'block',
+            'do_block',
+            'list',
+            'map',
+            'tuple',
+            'quoted_content',
+        },
+        json = {
+            'pair',
+        },
+        yaml = {
+            'block_mapping_pair',
+        },
+    },
+    exact_patterns = {
+        -- Example for a specific filetype with Lua patterns
+        -- Treat patterns.rust as a Lua pattern (i.e "^impl_item$" will
+        -- exactly match "impl_item" only)
+        -- rust = true,
+    },
+
+    -- [!] The options below are exposed but shouldn't require your attention,
+    --     you can safely ignore them.
+
+    zindex = 20, -- The Z-index of the context window
+    mode = 'cursor',  -- Line used to calculate context. Choices: 'cursor', 'topline'
+    -- Separator between context and content. Should be a single character string, like '-'.
+    -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
+    separator = nil,
+}
+EOF
+
 
 " " NERDTree
 " nnoremap <leader>n :NERDTreeFocus<CR>
@@ -138,7 +229,7 @@ require('vgit').setup({
 })
 require('telescope').setup{
   defaults = {
-    file_ignore_patterns = { "node_modules", ".plugins",  ".static", ".public"}
+    file_ignore_patterns = { "node_modules", ".plugins",  ".static", ".public", "env"}
   }
 }
 
@@ -182,7 +273,7 @@ let g:coc_global_extensions = [
 " TextEdit might fail if hidden is not set.
 
 " Give more space for displaying messages.
-set cmdheight=2
+" set cmdheight=2
 
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
@@ -199,19 +290,34 @@ set shortmess+=c
 
 set signcolumn=yes
 
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ CheckBackspace() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" " Use tab for trigger completion with characters ahead and navigate.
+" " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" " other plugin before putting this into your config.
+" inoremap <silent><expr> <TAB>
+"       \ pumvisible() ? "\<C-n>" :
+"       \ CheckBackspace() ? "\<TAB>" :
+"       \ coc#refresh()
+" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-function! CheckBackspace() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+" function! CheckBackspace() abort
+"   let col = col('.') - 1
+"   return !col || getline('.')[col - 1]  =~# '\s'
+" endfunction
+
+
+inoremap <silent><expr> <TAB>
+  \ coc#pum#visible() ? coc#_select_confirm() :
+  \ coc#expandableOrJumpable() ?
+  \ "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ coc#refresh()
+
+    function! s:check_back_space() abort
+      let col = col('.') - 1
+      return !col || getline('.')[col - 1]  =~# '\s'
+    endfunction
+
+    let g:coc_snippet_next = '<tab>'
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
@@ -220,6 +326,7 @@ nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gv :vsp<CR><Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
@@ -253,14 +360,31 @@ command! -nargs=0 Tsc :call CocAction('runCommand', 'tsserver.watchBuild')
 augroup neovim_terminal
   autocmd!
   " Enter Terminal-mode (insert) automatically
-  autocmd TermOpen * startinsert
+  " autocmd TermOpen * startinsert
   " Disables number lines on terminal buffers
   autocmd TermOpen * :set nonumber norelativenumber
   " allows you to use Ctrl-c on terminal window
   autocmd TermOpen * nnoremap <buffer> <C-c> i<C-c>
 augroup END
 
+tnoremap <S-Esc> <C-\><C-n>
+tnoremap <Esc><Esc> <C-\><C-n>
 
+
+let g:floaterm_width=0.8
+let g:floaterm_height=0.8
+let g:floaterm_autoclose=1
+
+" Set floaterm window's background to black
+hi Floaterm guibg=black
+" Set floating window border line color to cyan, and background to orange
+hi FloatermBorder guibg=black guifg=cyan
+
+nnoremap <leader>tt <cmd>FloatermToggle<cr>
+nnoremap <leader>tg <cmd>FloatermNew lazygit<cr>
+nnoremap <leader>ts <cmd>FloatermNew spt --tick-rate 16<cr>
+nnoremap <leader>tn <cmd>FloatermNext<cr>
+nnoremap <leader>tx <cmd>FloatermKill<cr>
 
 
 " colorscheme setup
@@ -281,12 +405,14 @@ require('onedark').setup {
 }
 require('onedark').load()
 EOF
-" let g:airline_theme='onedark'
 " let g:airline_theme='angr'
 " let g:airline_theme='distinguished'
 " let g:airline_theme='jet'
+" let g:airline_theme='base16'
 let g:airline_theme='onedark'
 colorscheme onedark
+
+
 
 " let g:airline_section_z='%p%%%#__accent_bold#%{g:airline_symbols.linenr}%l%#__restore__#%#__accent_bold#/%L%{g:airline_symbols.maxlinenr}%#__restore__#%#__accent_bold#%{g:airline_symbols.colnr}%v%#__restore__#'
 "let g:airline_section_z='%L%{g:airline_symbols.maxlinenr}'
@@ -329,6 +455,8 @@ colorscheme onedark
 " colorscheme base16-default-dark
 " colorscheme farout
 
+autocmd BufNewFile,BufRead *.csv   set filetype=csv
+autocmd BufNewFile,BufRead *.csv   set laststatus=3
 
 
 
@@ -376,3 +504,4 @@ let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
 
+set laststatus=3
