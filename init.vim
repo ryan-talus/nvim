@@ -20,10 +20,9 @@ set nobackup
 set nowritebackup
 set nowrap
 
-
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
-" set mouse=a 
+" set mouse=a
 
 set laststatus=3
 
@@ -63,7 +62,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install() } 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/nvim-treesitter-context'
 "Plug 'https://github.com/airblade/vim-gitgutter.git'
-Plug 'tanvirtin/vgit.nvim'
+" Plug 'tanvirtin/vgit.nvim'
 Plug 'styled-components/vim-styled-components'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'vim-airline/vim-airline'
@@ -74,6 +73,9 @@ Plug 'tpope/vim-rhubarb'
 Plug 'ellisonleao/glow.nvim'
 Plug 'voldikss/vim-floaterm'
 Plug 'mechatroner/rainbow_csv'
+
+" Colorscheme switcher
+Plug 'vimpostor/vim-lumen'
 
 " colorschemes
 Plug 'navarasu/onedark.nvim'
@@ -113,12 +115,12 @@ nnoremap <leader>gl <cmd>Telescope git_commits<cr>
 " xnoremap <leader>gs <Plug>(GitGutterStageHunk)
 
 " remap git to not conflict with split navigation
-nnoremap <leader>gp <cmd>VGit buffer_hunk_preview<cr>
-nnoremap <leader>gs <cmd>VGit buffer_hunk_stage<cr>
-nnoremap <leader>gu <cmd>VGit buffer_unstage<cr>
+" nnoremap <leader>gp <cmd>VGit buffer_hunk_preview<cr>
+" nnoremap <leader>gs <cmd>VGit buffer_hunk_stage<cr>
+" nnoremap <leader>gu <cmd>VGit buffer_unstage<cr>
 
-nmap <silent> [c <cmd>VGit hunk_up<cr>
-nmap <silent> ]c <cmd>VGit hunk_down<cr>
+" nmap <silent> [c <cmd>VGit hunk_up<cr>
+" nmap <silent> ]c <cmd>VGit hunk_down<cr>
 
 nnoremap <leader>gg <cmd>vertical Git<cr>
 command G :vertical Git
@@ -214,19 +216,19 @@ nmap <space>e <Cmd>CocCommand explorer<CR>
 
 
 lua << EOF
-require('vgit').setup({
-  settings = {
-    scene = {
-      diff_preference = 'split',
-    },
-    live_blame = {
-      enabled = false,
-    },
-    authorship_code_lens = {
-      enabled = false,
-    },
-  }
-})
+-- require('vgit').setup({
+--   settings = {
+--     scene = {
+--       diff_preference = 'split',
+--     },
+--     live_blame = {
+--       enabled = false,
+--     },
+--     authorship_code_lens = {
+--       enabled = false,
+--     },
+--   }
+-- })
 require('telescope').setup{
   defaults = {
     file_ignore_patterns = { "node_modules", ".plugins",  ".static", ".public", "env"}
@@ -368,7 +370,7 @@ augroup neovim_terminal
 augroup END
 
 tnoremap <S-Esc> <C-\><C-n>
-tnoremap <Esc><Esc> <C-\><C-n>
+" tnoremap <Esc><Esc> <C-\><C-n>
 
 
 let g:floaterm_width=0.8
@@ -376,9 +378,9 @@ let g:floaterm_height=0.8
 let g:floaterm_autoclose=1
 
 " Set floaterm window's background to black
-hi Floaterm guibg=black
+" hi Floaterm guibg=black
 " Set floating window border line color to cyan, and background to orange
-hi FloatermBorder guibg=black guifg=cyan
+" hi FloatermBorder guibg=black guifg=cyan
 
 nnoremap <leader>tt <cmd>FloatermToggle<cr>
 nnoremap <leader>tg <cmd>FloatermNew lazygit<cr>
@@ -389,30 +391,42 @@ nnoremap <leader>tx <cmd>FloatermKill<cr>
 
 " colorscheme setup
 " https://github.com/navarasu/onedark.nvim
-lua << EOF
-require('onedark').setup {
-    style = 'warm',
-    transparent = true,
-    colors = {
-      -- purple = "#c678dd",
-      purple = "#9578b0",
-      fg = "#bfb1a3",
-      cyan = "#5eaba1",
-      blue = "#689bc4",
-      yellow = "#c98f59",
-      orange = "#d6b569",
-    },
-}
-require('onedark').load()
-EOF
+" lua << EOF
+"  require('onedark').setup {
+"      style = 'warm',
+"      transparent = true,
+"      colors = {
+"        -- purple = "#c678dd",
+"        purple = "#9578b0",
+"        fg = "#bfb1a3",
+"        cyan = "#5eaba1",
+"        blue = "#689bc4",
+"        yellow = "#c98f59",
+"        orange = "#d6b569",
+"      },
+"  }
+"  require('onedark').load()
+" EOF
 " let g:airline_theme='angr'
-" let g:airline_theme='distinguished'
+" let g:irline_theme='distinguished'
 " let g:airline_theme='jet'
 " let g:airline_theme='base16'
-let g:airline_theme='onedark'
-colorscheme onedark
+" let g:airline_theme='onedark'
+" colorscheme base16-solarized-light
+" colorscheme base16-onedark
 
 
+let g:airline_theme='minimalist'
+set fillchars+=vert:\ "
+
+" au User LumenLight set background=light
+" au User LumenLight colorscheme base16-solarized-light
+au User LumenLight colorscheme base16-humanoid-light
+au User LumenLight let g:airline_theme='minimalist'
+
+" au User LumenDark set background=dark
+au User LumenDark colorscheme base16-twilight
+au User LumenDark let g:airline_theme='minimalist'
 
 " let g:airline_section_z='%p%%%#__accent_bold#%{g:airline_symbols.linenr}%l%#__restore__#%#__accent_bold#/%L%{g:airline_symbols.maxlinenr}%#__restore__#%#__accent_bold#%{g:airline_symbols.colnr}%v%#__restore__#'
 "let g:airline_section_z='%L%{g:airline_symbols.maxlinenr}'
@@ -469,6 +483,7 @@ nnoremap <leader>si <CMD>CocCommand pyright.organizeimports<CR>
 
 " Because I don't know how to type
 command Wq :wq
+command W :w
 nnoremap <leader>q <cmd>q<cr>
 
 
@@ -505,3 +520,4 @@ let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
 
 set laststatus=3
+
