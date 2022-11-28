@@ -422,7 +422,6 @@ nnoremap <leader>tx <cmd>FloatermKill<cr>
 " colorscheme base16-solarized-light
 " colorscheme base16-onedark
 
-
 let g:airline_theme='minimalist'
 " set fillchars+=vert:\ "
 
