@@ -47,9 +47,14 @@ nnoremap <leader>l :wincmd l<CR>
 nnoremap <leader>o <C-O>
 nnoremap <leader>i <C-i>
 
+" open current buffer in smerge
+
+nnoremap <leader>sm <cmd>!smerge log %<cr>
+nnoremap <leader>sl :execute ":!smerge search 'file:% line:"..line('.').."-"..line('.').."'"<cr>
 
 
 " bind noh to escape to hide it fast
+
 " nnoremap <esc> :noh<return><esc>
 
 " plugin manager
@@ -87,6 +92,8 @@ Plug 'fcpg/vim-farout'
 Plug 'RRethy/nvim-base16'
 Plug 'morhetz/gruvbox'
 Plug 'catppuccin/nvim', {'as': 'catppuccin'}
+Plug 'rose-pine/neovim', {'as': 'rose-pine'}
+Plug 'kaiuri/nvim-juliana'
 
 call plug#end()
 
@@ -212,7 +219,7 @@ EOF
 " nnoremap <C-t> :NERDTreeToggle<CR>
 " nnoremap <C-f> :NERDTreeFind<CR>
 
-nmap <space>e <Cmd>CocCommand explorer<CR>
+nmap <space>e <Cmd>CocCommand explorer --width 35<CR>
 
 
 lua << EOF
@@ -417,7 +424,7 @@ nnoremap <leader>tx <cmd>FloatermKill<cr>
 
 
 let g:airline_theme='minimalist'
-set fillchars+=vert:\ "
+" set fillchars+=vert:\ "
 
 " au User LumenLight set background=light
 " au User LumenLight colorscheme base16-solarized-light
