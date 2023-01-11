@@ -20,6 +20,8 @@ set nobackup
 set nowritebackup
 set nowrap
 
+let g:python3_host_prog = '/Users/ryan/.config/nvim/neovim_env/bin/python'
+
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " set mouse=a
@@ -28,7 +30,6 @@ set laststatus=3
 
 let mapleader=' '
 
-let g:python3_host_prog = '/Users/ryan/.config/nvim/neovim_env'
 
 
 " " Use ctrl-[hjkl] to select the active split!
@@ -219,7 +220,7 @@ EOF
 " nnoremap <C-t> :NERDTreeToggle<CR>
 " nnoremap <C-f> :NERDTreeFind<CR>
 
-nmap <space>e <Cmd>CocCommand explorer --width 35<CR>
+nmap <leader>e <Cmd>CocCommand explorer --width 35<CR>
 
 
 lua << EOF
@@ -314,19 +315,34 @@ set signcolumn=yes
 " endfunction
 
 
+" inoremap <silent><expr> <TAB>
+"   \ coc#pum#visible() ? coc#_select_confirm() :
+"   \ coc#expandableOrJumpable() ?
+"   \ "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+"   \ <SID>check_back_space() ? "\<TAB>" :
+"   \ coc#refresh()
+
+"     function! s:check_back_space() abort
+"       let col = col('.') - 1
+"       return !col || getline('.')[col - 1]  =~# '\s'
+"     endfunction
+
+"     let g:coc_snippet_next = '<tab>'
+
 inoremap <silent><expr> <TAB>
-  \ coc#pum#visible() ? coc#_select_confirm() :
-  \ coc#expandableOrJumpable() ?
-  \ "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-  \ <SID>check_back_space() ? "\<TAB>" :
-  \ coc#refresh()
+      \ coc#pum#visible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ CheckBackspace() ? "\<TAB>" :
+      \ coc#refresh()
 
-    function! s:check_back_space() abort
-      let col = col('.') - 1
-      return !col || getline('.')[col - 1]  =~# '\s'
-    endfunction
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 
-    let g:coc_snippet_next = '<tab>'
+let g:coc_snippet_next = '<tab>'
+
+
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
@@ -494,6 +510,9 @@ nnoremap <leader>q <cmd>q<cr>
 
 
 
+augroup JsonToJsonc
+    autocmd! FileType json set filetype=jsonc
+augroup END
 
 " air-line
 let g:airline_powerline_fonts = 1

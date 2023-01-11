@@ -3,5 +3,6 @@
   "python.analysis.typeCheckingMode": "off",
   "python.formatting.provider": "black",
   "python.linting.pylintEnabled": true,
-  "pyright.inlayHints.enable": false
+  "pyright.inlayHints.enable": false,
+  "snippets.ultisnips.pythonPrompt": false
 }
