@@ -239,7 +239,8 @@ lua << EOF
 -- })
 require('telescope').setup{
   defaults = {
-    file_ignore_patterns = { "node_modules", ".plugins",  ".static", ".public", "env"}
+    file_ignore_patterns = { "node_modules", ".plugins",  ".static", ".public", "env"},
+    path_display = { truncate }
   }
 }
 
