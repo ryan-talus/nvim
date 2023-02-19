@@ -69,6 +69,7 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/nvim-treesitter-context'
 "Plug 'https://github.com/airblade/vim-gitgutter.git'
 " Plug 'tanvirtin/vgit.nvim'
+Plug 'jparise/vim-graphql'
 Plug 'styled-components/vim-styled-components'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'vim-airline/vim-airline'
@@ -344,6 +345,7 @@ endfunction
 let g:coc_snippet_next = '<tab>'
 
 
+inoremap <silent><expr> jj coc#refresh()
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
