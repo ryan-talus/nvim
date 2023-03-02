@@ -61,7 +61,8 @@ nnoremap <leader>sl :execute ":!smerge search 'file:% line:"..line('.').."-"..li
 " plugin manager
 call plug#begin()
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
 Plug 'fannheyward/telescope-coc.nvim'
 Plug 'tpope/vim-commentary'
 Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install() } }
