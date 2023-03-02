@@ -443,6 +443,7 @@ nnoremap <leader>tx <cmd>FloatermKill<cr>
 
 let g:airline_theme='minimalist'
 " set fillchars+=vert:\ "
+colorscheme base16-classic-dark
 
 " au User LumenLight set background=light
 " au User LumenLight colorscheme base16-solarized-light
@@ -453,6 +454,8 @@ au User LumenLight let g:airline_theme='minimalist'
 " au User LumenDark colorscheme base16-twilight
 au User LumenDark colorscheme base16-classic-dark
 au User LumenDark let g:airline_theme='minimalist'
+
+:command Togg colorscheme base16-humanoid-light | let g:airline_theme='minimalist'
 
 " let g:airline_section_z='%p%%%#__accent_bold#%{g:airline_symbols.linenr}%l%#__restore__#%#__accent_bold#/%L%{g:airline_symbols.maxlinenr}%#__restore__#%#__accent_bold#%{g:airline_symbols.colnr}%v%#__restore__#'
 "let g:airline_section_z='%L%{g:airline_symbols.maxlinenr}'
