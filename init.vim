@@ -31,7 +31,6 @@ set laststatus=3
 let mapleader=' '
 
 
-
 " " Use ctrl-[hjkl] to select the active split!
 " nmap <silent> <c-k> :wincmd k<CR>
 " nmap <silent> <c-j> :wincmd j<CR>
@@ -97,6 +96,8 @@ Plug 'morhetz/gruvbox'
 Plug 'catppuccin/nvim', {'as': 'catppuccin'}
 Plug 'rose-pine/neovim', {'as': 'rose-pine'}
 Plug 'kaiuri/nvim-juliana'
+
+Plug 'github/copilot.vim'
 
 call plug#end()
 
@@ -332,18 +333,22 @@ set signcolumn=yes
 
 "     let g:coc_snippet_next = '<tab>'
 
-inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ CheckBackspace() ? "\<TAB>" :
-      \ coc#refresh()
+" inoremap <silent><expr> <TAB>
+"       \ coc#pum#visible() ? coc#_select_confirm() :
+"       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+"       \ CheckBackspace() ? "\<TAB>" :
+"       \ coc#refresh()
+
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 function! CheckBackspace() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-let g:coc_snippet_next = '<tab>'
 
 
 inoremap <silent><expr> jj coc#refresh()
@@ -442,6 +447,8 @@ nnoremap <leader>tx <cmd>FloatermKill<cr>
 " colorscheme base16-solarized-light
 " colorscheme base16-onedark
 
+set noshowmode
+" let g:airline_theme='minimalist'
 let g:airline_theme='minimalist'
 " set fillchars+=vert:\ "
 colorscheme base16-classic-dark
@@ -528,6 +535,29 @@ let g:airline_powerline_fonts = 1
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
+
+
+
+let s:hidden_all = 0
+function! ToggleHiddenAll()
+    if s:hidden_all  == 0
+        let s:hidden_all = 1
+        set noshowmode
+        set noruler
+        set laststatus=0
+        set noshowcmd
+    else
+        let s:hidden_all = 0
+        set showmode
+        set ruler
+        set laststatus=3
+        set showcmd
+    endif
+endfunction
+
+nnoremap <S-h> :call ToggleHiddenAll()<CR>
+
+
 
 " unicode symbols
 let g:airline_left_sep = '»'

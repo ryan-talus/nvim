@@ -5,6 +5,8 @@
   "python.linting.pylintEnabled": true,
   "pyright.inlayHints.enable": false,
   "snippets.ultisnips.pythonPrompt": false,
+  "coc.source.around.enable": false,
+  "coc.source.buffer.enable": false,
   // coc-settings.json
   "languageserver": {
     "graphql": {
