@@ -20,7 +20,7 @@ set nobackup
 set nowritebackup
 set nowrap
 
-let g:python3_host_prog = '/Users/ryan/.config/nvim/neovim_env/bin/python'
+let g:python3_host_prog = '~/.config/nvim/neovim_env/bin/python'
 
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
