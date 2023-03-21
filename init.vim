@@ -60,7 +60,7 @@ nnoremap <leader>sl :execute ":!smerge search 'file:% line:"..line('.').."-"..li
 " plugin manager
 call plug#begin()
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.x' }
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
 Plug 'fannheyward/telescope-coc.nvim'
 Plug 'tpope/vim-commentary'
@@ -72,30 +72,38 @@ Plug 'nvim-treesitter/nvim-treesitter-context'
 Plug 'jparise/vim-graphql'
 Plug 'styled-components/vim-styled-components'
 Plug 'kyazdani42/nvim-web-devicons'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
 Plug 'TimUntersberger/neogit'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'ellisonleao/glow.nvim'
 Plug 'voldikss/vim-floaterm'
 Plug 'mechatroner/rainbow_csv'
+Plug 'yasuhiroki/circleci.vim'
 
 " Colorscheme switcher
 Plug 'vimpostor/vim-lumen'
 
 " colorschemes
-Plug 'navarasu/onedark.nvim'
-Plug 'nanotech/jellybeans.vim'
-Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
-Plug 'Yazeed1s/minimal.nvim'
-Plug 'savq/melange'
-Plug 'fcpg/vim-farout'
-Plug 'RRethy/nvim-base16'
-Plug 'morhetz/gruvbox'
-Plug 'catppuccin/nvim', {'as': 'catppuccin'}
-Plug 'rose-pine/neovim', {'as': 'rose-pine'}
-Plug 'kaiuri/nvim-juliana'
+" Plug 'navarasu/onedark.nvim'
+" Plug 'nanotech/jellybeans.vim'
+" Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+" Plug 'Yazeed1s/minimal.nvim'
+" Plug 'savq/melange'
+" Plug 'fcpg/vim-farout'
+" Plug 'RRethy/nvim-base16'
+" Plug 'morhetz/gruvbox'
+" Plug 'catppuccin/nvim', {'as': 'catppuccin'}
+" Plug 'rose-pine/neovim', {'as': 'rose-pine'}
+" Plug 'kaiuri/nvim-juliana'
+" Plug 'shaunsingh/nord.nvim'
+" Plug 'nordtheme/vim'
+Plug 'rmehri01/onenord.nvim', { 'branch': 'main' }
+
+Plug 'nvim-lualine/lualine.nvim'
+
+
 
 Plug 'github/copilot.vim'
 
@@ -226,6 +234,7 @@ EOF
 nmap <leader>e <Cmd>CocCommand explorer --width 35<CR>
 
 
+
 lua << EOF
 -- require('vgit').setup({
 --   settings = {
@@ -282,6 +291,7 @@ let g:coc_global_extensions = [
       \'coc-css',
       \'coc-styled-components',
       \'coc-explorer',
+      \'coc-eslint',
       \'coc-pyright']
 " coc-vim settings
 " TextEdit might fail if hidden is not set.
@@ -388,6 +398,49 @@ nmap <leader>rn <Plug>(coc-rename)
 " set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 
+lua << END
+require('lualine').setup {
+  options = {
+    icons_enabled = true,
+    theme = 'auto',
+    component_separators = { left = '', right = ''},
+    section_separators = { left = '', right = ''},
+    disabled_filetypes = {
+      statusline = {},
+      winbar = {},
+    },
+    ignore_focus = {},
+    always_divide_middle = true,
+    globalstatus = true,
+    refresh = {
+      statusline = 1000,
+      tabline = 1000,
+      winbar = 1000,
+    }
+  },
+  sections = {
+    lualine_a = {'mode'},
+    lualine_b = {'branch', 'diff', 'diagnostics'},
+    lualine_c = {'filename'},
+    lualine_x = {"%{coc#status()} %{get(b:,'coc_current_function','')}", 'filetype'},
+    lualine_y = {'progress'},
+    lualine_z = {'location'}
+  },
+  inactive_sections = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = {'filename'},
+    lualine_x = {'location'},
+    lualine_y = {},
+    lualine_z = {}
+  },
+  tabline = {},
+  winbar = {},
+  inactive_winbar = {},
+  extensions = {}
+}
+END
+
 command! -nargs=0 Tsc :call CocAction('runCommand', 'tsserver.watchBuild')
 
 
@@ -409,10 +462,11 @@ let g:floaterm_width=0.8
 let g:floaterm_height=0.8
 let g:floaterm_autoclose=1
 
-" Set floaterm window's background to black
+" " Set floaterm window's background to black
 " hi Floaterm guibg=black
-" Set floating window border line color to cyan, and background to orange
+" " Set floating window border line color to cyan, and background to orange
 " hi FloatermBorder guibg=black guifg=cyan
+
 
 nnoremap <leader>tt <cmd>FloatermToggle<cr>
 nnoremap <leader>tg <cmd>FloatermNew lazygit<cr>
@@ -421,8 +475,8 @@ nnoremap <leader>tn <cmd>FloatermNext<cr>
 nnoremap <leader>tx <cmd>FloatermKill<cr>
 
 
-" colorscheme setup
-" https://github.com/navarasu/onedark.nvim
+" " colorscheme setup
+" " https://github.com/navarasu/onedark.nvim
 " lua << EOF
 "  require('onedark').setup {
 "      style = 'warm',
@@ -439,6 +493,43 @@ nnoremap <leader>tx <cmd>FloatermKill<cr>
 "  }
 "  require('onedark').load()
 " EOF
+
+" lua << EOF
+"   require('onedark').setup {
+"     style = 'darker',
+"     transparent = true,
+"     diagnostics = {
+"       darker = true, -- darker colors for diagnostic
+"       background = true,    -- use background color for virtual text
+"     },
+"     colors = {
+"       -- purple = "#c678dd",
+"       -- purple = "#9578b0",
+"       purple = "#80738c",
+"       fg = "#bfb1a3",
+"       cyan = "#5eaba1",
+"       blue = "#689bc4",
+"       yellow = "#c98f59",
+"       orange = "#d6b569",
+"     }
+"   }
+"   require('onedark').load()
+" EOF
+
+
+
+" function! FloatermGrey()
+"     " Set floaterm window's background to black
+"     hi Floaterm guibg=black
+"     " Set floating window border line color to cyan, and background to orange
+"     hi FloatermBorder guibg=black guifg=grey
+"     FloatermNew lazygit
+" endfunction
+" nnoremap <leader>tg :call FloatermGrey()<CR>
+
+
+
+
 " let g:airline_theme='angr'
 " let g:irline_theme='distinguished'
 " let g:airline_theme='jet'
@@ -446,24 +537,36 @@ nnoremap <leader>tx <cmd>FloatermKill<cr>
 " let g:airline_theme='onedark'
 " colorscheme base16-solarized-light
 " colorscheme base16-onedark
+colorscheme onenord
 
 set noshowmode
+" let g:airline_theme='nord'
 " let g:airline_theme='minimalist'
-let g:airline_theme='minimalist'
 " set fillchars+=vert:\ "
-colorscheme base16-classic-dark
 
-" au User LumenLight set background=light
-" au User LumenLight colorscheme base16-solarized-light
-au User LumenLight colorscheme base16-humanoid-light
-au User LumenLight let g:airline_theme='minimalist'
+" colorscheme base16-classic-dark
 
-" au User LumenDark set background=dark
-" au User LumenDark colorscheme base16-twilight
-au User LumenDark colorscheme base16-classic-dark
-au User LumenDark let g:airline_theme='minimalist'
+" " au User LumenLight set background=light
+" " au User LumenLight colorscheme base16-solarized-light
+" au User LumenLight colorscheme base16-humanoid-light
+" au User LumenLight let g:airline_theme='minimalist'
 
-:command Togg colorscheme base16-humanoid-light | let g:airline_theme='minimalist'
+" " au User LumenDark set background=dark
+" " au User LumenDark colorscheme base16-twilight
+" au User LumenDark colorscheme base16-classic-dark
+" au User LumenDark let g:airline_theme='minimalist'
+
+" :command Togg colorscheme base16-humanoid-light | let g:airline_theme='minimalist'
+
+" hi clear
+" let g:colors_name = 'base16-classic-dark'
+" lua require('base16-colorscheme').setup({
+"     \ base00 = '#000000', base01 = '#202020', base02 = '#303030', base03 = '#505050',
+"     \ base04 = '#b0b0b0', base05 = '#d0d0d0', base06 = '#e0e0e0', base07 = '#f5f5f5',
+"     \ base08 = '#ac4142', base09 = '#d28445', base0A = '#f4bf75', base0B = '#90a959',
+"     \ base0C = '#75b5aa', base0D = '#6a9fb5', base0E = '#aa759f', base0F = '#8f5536'
+"     \})
+
 
 " let g:airline_section_z='%p%%%#__accent_bold#%{g:airline_symbols.linenr}%l%#__restore__#%#__accent_bold#/%L%{g:airline_symbols.maxlinenr}%#__restore__#%#__accent_bold#%{g:airline_symbols.colnr}%v%#__restore__#'
 "let g:airline_section_z='%L%{g:airline_symbols.maxlinenr}'
@@ -473,14 +576,6 @@ au User LumenDark let g:airline_theme='minimalist'
 "   options = { transparent = true }
 " })
 " EOF
-
-
-"" lua << EOF
-"" require('base16-colorscheme').setup({
-""   base00 = '#16161D'
-"" })
-"" EOF
-""
 
 
 " let g:airline_theme='minimalist'
@@ -529,13 +624,6 @@ augroup JsonToJsonc
     autocmd! FileType json set filetype=jsonc
 augroup END
 
-" air-line
-let g:airline_powerline_fonts = 1
-
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
-
 
 
 let s:hidden_all = 0
@@ -557,6 +645,13 @@ endfunction
 
 nnoremap <S-h> :call ToggleHiddenAll()<CR>
 
+
+" " air-line
+let g:airline_powerline_fonts = 1
+
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
 
 
 " unicode symbols
@@ -582,5 +677,5 @@ let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
 
-set laststatus=3
 
+set laststatus=3

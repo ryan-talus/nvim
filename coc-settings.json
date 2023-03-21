@@ -1,10 +1,9 @@
 {
   "coc.preferences.formatOnSave": true,
-  "python.analysis.typeCheckingMode": "off",
+  "python.analysis.typeCheckingMode": "basic",
   "python.formatting.provider": "black",
   "python.linting.pylintEnabled": true,
-  // "pyright.inlayHints.enable": false,
-  "snippets.ultisnips.pythonPrompt": false,
+  "python.linting.mypyEnabled": true,
   "coc.source.around.enable": false,
   "coc.source.buffer.enable": false,
   // coc-settings.json
