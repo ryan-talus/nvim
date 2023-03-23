@@ -31,13 +31,6 @@ set laststatus=3
 let mapleader=' '
 
 
-" " Use ctrl-[hjkl] to select the active split!
-" nmap <silent> <c-k> :wincmd k<CR>
-" nmap <silent> <c-j> :wincmd j<CR>
-" nmap <silent> <c-h> :wincmd h<CR>
-" nmap <silent> <c-l> :wincmd l<CR>
-
-
 " use leader and hjkl to navigate splits
 nnoremap <leader>k :wincmd k<CR>
 nnoremap <leader>j :wincmd j<CR>
@@ -48,14 +41,10 @@ nnoremap <leader>o <C-O>
 nnoremap <leader>i <C-i>
 
 " open current buffer in smerge
-
 nnoremap <leader>sm <cmd>!smerge log %<cr>
 nnoremap <leader>sl :execute ":!smerge search 'file:% line:"..line('.').."-"..line('.').."'"<cr>
 
 
-" bind noh to escape to hide it fast
-
-" nnoremap <esc> :noh<return><esc>
 
 " plugin manager
 call plug#begin()
@@ -69,15 +58,15 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/nvim-treesitter-context'
 "Plug 'https://github.com/airblade/vim-gitgutter.git'
 " Plug 'tanvirtin/vgit.nvim'
-Plug 'jparise/vim-graphql'
-Plug 'styled-components/vim-styled-components'
+" Plug 'jparise/vim-graphql'
+" Plug 'styled-components/vim-styled-components'
 Plug 'kyazdani42/nvim-web-devicons'
 " Plug 'vim-airline/vim-airline'
 " Plug 'vim-airline/vim-airline-themes'
 Plug 'TimUntersberger/neogit'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
-Plug 'ellisonleao/glow.nvim'
+" Plug 'ellisonleao/glow.nvim'
 Plug 'voldikss/vim-floaterm'
 Plug 'mechatroner/rainbow_csv'
 Plug 'yasuhiroki/circleci.vim'
@@ -109,6 +98,7 @@ Plug 'github/copilot.vim'
 
 call plug#end()
 
+
 " plugin remapping
 " xnoremap <silent>g <cmd>gc
 
@@ -126,20 +116,6 @@ nnoremap <leader>fd <cmd>Telescope coc definitions<cr>
 nnoremap <leader>ft <cmd>Telescope colorscheme<cr>
 " nnoremap <leader>gg <cmd>Telescope git_status<cr>
 nnoremap <leader>gl <cmd>Telescope git_commits<cr>
-
-" " remap git to not conflict with split navigation
-" nnoremap <leader>gp <Plug>(GitGutterPreviewHunk)
-" nnoremap <leader>gu <Plug>(GitGutterUndoHunk)
-" nnoremap <leader>gs <Plug>(GitGutterStageHunk)
-" xnoremap <leader>gs <Plug>(GitGutterStageHunk)
-
-" remap git to not conflict with split navigation
-" nnoremap <leader>gp <cmd>VGit buffer_hunk_preview<cr>
-" nnoremap <leader>gs <cmd>VGit buffer_hunk_stage<cr>
-" nnoremap <leader>gu <cmd>VGit buffer_unstage<cr>
-
-" nmap <silent> [c <cmd>VGit hunk_up<cr>
-" nmap <silent> ]c <cmd>VGit hunk_down<cr>
 
 nnoremap <leader>gg <cmd>vertical Git<cr>
 command G :vertical Git
@@ -225,13 +201,6 @@ require'treesitter-context'.setup{
 EOF
 
 
-" " NERDTree
-" nnoremap <leader>n :NERDTreeFocus<CR>
-" nnoremap <C-n> :NERDTree<CR>
-" nnoremap <C-t> :NERDTreeToggle<CR>
-" nnoremap <C-f> :NERDTreeFind<CR>
-
-nmap <leader>e <Cmd>CocCommand explorer --width 35<CR>
 
 
 
@@ -314,41 +283,6 @@ set shortmess+=c
 
 set signcolumn=yes
 
-" " Use tab for trigger completion with characters ahead and navigate.
-" " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" " other plugin before putting this into your config.
-" inoremap <silent><expr> <TAB>
-"       \ pumvisible() ? "\<C-n>" :
-"       \ CheckBackspace() ? "\<TAB>" :
-"       \ coc#refresh()
-" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-" function! CheckBackspace() abort
-"   let col = col('.') - 1
-"   return !col || getline('.')[col - 1]  =~# '\s'
-" endfunction
-
-
-" inoremap <silent><expr> <TAB>
-"   \ coc#pum#visible() ? coc#_select_confirm() :
-"   \ coc#expandableOrJumpable() ?
-"   \ "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-"   \ <SID>check_back_space() ? "\<TAB>" :
-"   \ coc#refresh()
-
-"     function! s:check_back_space() abort
-"       let col = col('.') - 1
-"       return !col || getline('.')[col - 1]  =~# '\s'
-"     endfunction
-
-"     let g:coc_snippet_next = '<tab>'
-
-" inoremap <silent><expr> <TAB>
-"       \ coc#pum#visible() ? coc#_select_confirm() :
-"       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-"       \ CheckBackspace() ? "\<TAB>" :
-"       \ coc#refresh()
-
 " Make <CR> to accept selected completion item or notify coc.nvim to format
 " <C-g>u breaks current undo, please make your own choice
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
@@ -360,6 +294,7 @@ function! CheckBackspace() abort
 endfunction
 
 
+nmap <leader>e <Cmd>CocCommand explorer --width 35<CR>
 
 inoremap <silent><expr> jj coc#refresh()
 
@@ -391,12 +326,6 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
-
-" Add (Neo)Vim's native statusline support.
-" NOTE: Please see `:h coc-status` for integrations with external plugins that
-" provide custom statusline: lightline.vim, vim-airline.
-" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
 
 lua << END
 require('lualine').setup {
