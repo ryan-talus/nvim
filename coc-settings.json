@@ -4,6 +4,11 @@
   "python.formatting.provider": "black",
   "python.linting.pylintEnabled": true,
   "python.linting.mypyEnabled": true,
+  "pyright.testing.provider": "pytest",
+  "pyright.enable": true,
+  "pyright.testing.pytestArgs": ["-v", "-s"],
+  "codeLens.enable": true,
+  "typescript.referencesCodeLens.enabled": true,
   "coc.source.around.enable": false,
   "coc.source.buffer.enable": false,
   // coc-settings.json
